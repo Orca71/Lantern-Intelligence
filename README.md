@@ -25,7 +25,7 @@ Development currently focuses on **LIAA**, the accounting branch.
 
 The accounting assistant follows a hierarchical multi-agent pipeline:
 
-![LIAA Architecture](lIAA_architectur.png)
+![LIAA Architecture](LIAA_architectur.png)
 
 ### Pipeline Overview
 
