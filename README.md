@@ -37,6 +37,6 @@ The accounting system (LIAA) follows a hierarchical multi-agent pipeline:
    Convert natural language into structured JSON schemas.
 
 5. **Action Executor**  
-   Submits validated payloads to the QuickBooks API using OAuth 2.0.
+   Submits validated payloads to the QuickBooks API
 
 ---
