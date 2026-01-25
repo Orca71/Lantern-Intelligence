@@ -6,25 +6,31 @@ This project was architected and engineered from the ground up as a full-stack m
 
 ---
 
-## System Overview
+## Platform Architecture
 
-Lantern is structured as a unified AI platform with four high-level branches:
+Lantern Intelligence is designed as a unified AI platform with multiple specialized branches:
 
 - **LIAA** — Lantern Intelligent Accounting Assistance  
 - **LIMA** — Lantern Intelligent Marketing Assistance  
 - **LISA** — Lantern Intelligent Sales Assistance  
 - **LIFA** — Lantern Intelligent Forecasting Assistance  
 
+![Lantern Platform](assets/main_architecture.png)
+
 Development currently focuses on **LIAA**, the accounting branch.
 
 ---
 
-## High-Level Architecture
+## Accounting System (LIAA) Architecture
 
-The accounting system (LIAA) follows a hierarchical multi-agent pipeline:
+The accounting assistant follows a hierarchical multi-agent pipeline:
+
+![LIAA Architecture](assets/lIAA_architecture.png)
+
+### Pipeline Overview
 
 1. **LI-Orchestrator (Qwen-7B, LoRA)**  
-   Top-level conversational layer responsible for system behavior and user interaction.
+   Top-level conversational layer responsible for system behavior and dialogue.
 
 2. **Coarse Intent Router (MiniLM)**  
    Classifies incoming prompts into high-level domains:  
@@ -37,6 +43,10 @@ The accounting system (LIAA) follows a hierarchical multi-agent pipeline:
    Convert natural language into structured JSON schemas.
 
 5. **Action Executor**  
-   Submits validated payloads to the QuickBooks API
+   Submits validated payloads to the QuickBooks API using OAuth 2.0.
 
 ---
+
+## Example Flow
+
+User prompt:
