@@ -45,8 +45,3 @@ The accounting assistant follows a hierarchical multi-agent pipeline:
 5. **Action Executor**  
    Submits validated payloads to the QuickBooks API using OAuth 2.0.
 
----
-
-## Example Flow
-
-User prompt:
