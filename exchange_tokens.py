@@ -2,10 +2,7 @@ import requests
 import base64
 import json
 
-CLIENT_ID = "ABRgRvGV49OOIiERh6ICf4yvyvBRIRCVgodNO3iFbRHP4Ih393"
-CLIENT_SECRET = "gqovUeRkP9x0X1iAN4VeF7xQPqn31I8OxlNCbv7Z"
-REDIRECT_URI = "http://localhost:9000/callback"
-TOKEN_URL = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
+
 
 def exchange_code_for_tokens(auth_code: str):
     basic_auth = base64.b64encode(f"{CLIENT_ID}:{CLIENT_SECRET}".encode()).decode()
@@ -42,3 +39,4 @@ def exchange_code_for_tokens(auth_code: str):
 if __name__ == "__main__":
     auth_code = input("Paste the authorization code: ")
     exchange_code_for_tokens(auth_code)
+
