@@ -19,7 +19,9 @@ Lantern Intelligence is designed as a unified AI platform with multiple speciali
 - **LISA** — Lantern Intelligent Sales Assistance  
 - **LIFA** — Lantern Intelligent Forecasting Assistance  
 
-![Lantern Platform](main_architecture.png)
+<p align="center">
+  <img src="main_architecture.png" width="600">
+</p>
 
 Development currently focuses on **LIAA**, the accounting branch.
 
@@ -29,7 +31,9 @@ Development currently focuses on **LIAA**, the accounting branch.
 
 The accounting assistant follows a hierarchical multi-agent pipeline:
 
-![LIAA Architecture](LIAA_architectur.png)
+<p align="center">
+  <img src="LIAA_architectur.png" width="600">
+</p>
 
 ### Pipeline Overview
 
