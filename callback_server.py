@@ -3,10 +3,10 @@ from fastapi.responses import RedirectResponse
 import urllib.parse
 import uvicorn
 
-CLIENT_ID = "ABRgRvGV49OOIiERh6ICf4yvyvBRIRCVgodNO3iFbRHP4Ih393"
-REDIRECT_URI = "http://localhost:9000/callback"
-SCOPES = "com.intuit.quickbooks.accounting openid profile email"
-AUTH_URL = "https://appcenter.intuit.com/connect/oauth2"
+CLIENT_ID = "###"
+REDIRECT_URI = "###"
+SCOPES = "###"
+AUTH_URL = "###"
 
 app = FastAPI()
 
@@ -30,3 +30,4 @@ async def callback(request: Request):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
