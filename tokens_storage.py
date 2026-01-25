@@ -2,11 +2,6 @@ import requests
 import json
 from requests.auth import HTTPBasicAuth
 
-CLIENT_ID = "ABRgRvGV49OOIiERh6ICf4yvyvBRIRCVgodNO3iFbRHP4Ih393"
-CLIENT_SECRET = "gqovUeRkP9x0X1iAN4VeF7xQPqn31I8OxlNCbv7Z"
-REDIRECT_URI = "http://localhost:9000/callback"
-TOKEN_URL = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
-
 
 def save_tokens(tokens: dict):
     """Save tokens (including realmId if present)."""
@@ -71,3 +66,4 @@ def refresh_tokens(refresh_token: str):
     save_tokens(tokens)
     print("♻️ Tokens refreshed successfully.")
     return tokens
+
