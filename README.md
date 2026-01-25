@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" width="200">
+</p>
+
 # Lantern Intelligence
 
 Lantern Intelligence is a modular multi-agent AI system designed to automate small business workflows through natural language interaction. The system translates unstructured user prompts into structured, machine-executable actions, with a current focus on accounting automation via the QuickBooks API.
