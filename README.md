@@ -16,10 +16,10 @@ This project was architected and engineered from the ground up as a full-stack m
 
 Lantern Intelligence is designed as a unified AI platform with multiple specialized branches:
 
-- **LIAA** — Lantern Intelligent Accounting Assistance  
-- **LIMA** — Lantern Intelligent Marketing Assistance  
-- **LISA** — Lantern Intelligent Sales Assistance  
-- **LIFA** — Lantern Intelligent Forecasting Assistance  
+- **LIAA** — Lantern Intelligent Accounting Assistance
+- **LIMA** — Lantern Intelligent Marketing Assistance
+- **LISA** — Lantern Intelligent Sales Assistance
+- **LIFA** — Lantern Intelligent Forecasting Assistance
 
 <p align="center">
   <img src="main_architecture.png" width="600">
@@ -57,100 +57,94 @@ The accounting assistant follows a hierarchical multi-agent pipeline:
 
 ---
 
-# 🚀 Lantern Intelligence v2 — Reasoning & Retrieval Architecture
+## 🚀 Lantern Intelligence v2 — Reasoning Architecture
 
 Lantern Intelligence v2 extends the platform beyond action execution into **grounded reasoning over financial data**.
 
 While V1 focuses on translating natural language into executable actions, V2 introduces a structured pipeline that combines:
 
-- live company data (SQL)  
-- financial knowledge (ChromaDB)  
-- controlled LLM reasoning (Ollama)  
+- live company data (SQL)
+- financial knowledge (ChromaDB)
+- controlled LLM reasoning (Ollama)
 
-The result is a system capable of producing **context-aware, data-grounded financial analysis**.
+The result is **context-aware, data-grounded financial analysis**.
 
 ---
 
 ## V2 System Architecture
-User Question
-↓
-Query Router
-↓
-Retrieval Layer
-├── SQL (Live Financial Data)
-└── ChromaDB (Concept Knowledge)
-↓
-Prompt Builder
-↓
-LLM (Ollama — llama3.1:8b)
-↓
-Streaming Response (CLI / Web)
 
+```text
+User Question
+    ↓
+Query Router
+    ↓
+Retrieval Layer
+    ├── SQL (Live Financial Data)
+    └── ChromaDB (Concept Knowledge)
+    ↓
+Prompt Builder
+    ↓
+LLM (Ollama — llama3.1:8b)
+    ↓
+Streaming Response (CLI / Web)
+```
 
 ---
 
 ## Pipeline Components
 
 ### Query Router (`query_router.py`)
-- Lightweight keyword-based routing  
-- Selects only relevant financial queries  
-- Reduces noise before retrieval  
-
----
+- Lightweight keyword-based routing
+- Selects only relevant financial queries
+- Reduces noise before retrieval
 
 ### Retrieval Layer (`retrieve.py`)
-- Executes SQL queries on company databases  
-- Retrieves relevant concept documents from ChromaDB  
-- Returns structured context for reasoning  
-
----
+- Executes SQL queries on company databases
+- Retrieves relevant concept documents from ChromaDB
+- Returns structured context for reasoning
 
 ### Knowledge Base + Embeddings (`ingest.py`)
-- Financial concepts stored as `.txt` documents  
-- Embedded using SentenceTransformers  
-- Persisted in ChromaDB for semantic retrieval  
-
----
+- Financial concepts stored as `.txt` documents
+- Embedded using SentenceTransformers
+- Persisted in ChromaDB for semantic retrieval
 
 ### Prompt Builder + Adviser (`adviser.py`)
 - Constructs structured prompts with:
-  - strict system rules (no hallucination)  
-  - financial benchmarks  
-  - live company data  
-- Calls local LLM (Ollama)  
-- Streams responses in real time  
-
----
+  - strict system rules (no hallucination)
+  - financial benchmarks
+  - live company data
+- Calls local LLM (Ollama)
+- Streams responses in real time
 
 ### Interfaces
 
 #### CLI (`main.py`)
-- Interactive question-answer loop  
-- Multi-company selection  
+- Interactive question-answer loop
+- Multi-company selection
 
 #### Web (`app.py`)
-- FastAPI backend  
-- Streaming responses  
-- Supports conversational context  
+- FastAPI backend
+- Streaming responses
+- Supports conversational context
 
 ---
 
 ## Key Design Principles
 
 - **Grounded Reasoning**  
-  The LLM is constrained to use only retrieved data and concepts  
+  The LLM is constrained to use only retrieved data and concepts
 
 - **Separation of Concerns**  
-  Retrieval, routing, and reasoning are independent modules  
+  Retrieval, routing, and reasoning are independent modules
 
 - **Local-First Inference**  
-  Runs entirely on local infrastructure (Ollama)  
+  Runs entirely on local infrastructure (Ollama)
 
 - **Hybrid Intelligence**  
   Combines:
-  - structured data (SQL)  
-  - semantic retrieval (ChromaDB)  
-  - generative reasoning (LLM)  
+  - structured data (SQL)
+  - semantic retrieval (ChromaDB)
+  - generative reasoning (LLM)
 
 ---
 
