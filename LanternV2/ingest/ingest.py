@@ -1,17 +1,3 @@
-# =============================================================
-# LANTERN INTELLIGENCE v2 — ingest.py
-# Phase 2: Embed and store financial concept documents
-# =============================================================
-# WHAT THIS SCRIPT DOES:
-#   1. Reads all 8 .txt concept documents from knowledge_base/
-#   2. Embeds each document into a vector using sentence-transformers
-#   3. Stores the vectors + original text in ChromaDB on disk
-#   4. Runs a verification query to confirm retrieval works
-#
-# RUN THIS ONCE. After it completes, ChromaDB is loaded and
-# ready. You do not need to run it again unless documents change.
-# =============================================================
-
 import os
 import chromadb
 
@@ -21,39 +7,18 @@ KNOWLEDGE_BASE_DIR = "/workspace/Lantern_V2/knowledge_base"
 CHROMA_STORE_DIR = "/workspace/Lantern_V2/chroma_store"
 COLLECTION_NAME = 'lantern_financial_concepts'
 
-# -------------------------------------------------------------
-# STEP 1: LOAD THE EMBEDDING MODEL
-# -------------------------------------------------------------
-# SentenceTransformer converts text into vectors.
-# "all-MiniLM-L6-v2" is small, fast, and excellent at
-# semantic similarity tasks — perfect for RAG retrieval.
-# The first run downloads the model (~90MB). After that
-# it loads from local cache instantly.
-# -------------------------------------------------------------
+
 
 print("Loading embedding models....")
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 print("Model Loaded.\n")
 
-# -------------------------------------------------------------
-# STEP 2: CONNECT TO CHROMADB (persistent on disk)
-# -------------------------------------------------------------
-# PersistentClient tells ChromaDB to save everything to disk
-# at CHROMA_STORE_DIR. This means your embeddings survive
-# between runs — you don't have to re-embed every time.
-# -------------------------------------------------------------
+
 
 print(f"Connecting to ChromaDB at : {CHROMA_STORE_DIR}")
 chroma_client = chromadb.PersistentClient(path=CHROMA_STORE_DIR)
 
-# -------------------------------------------------------------
-# STEP 3: CREATE (OR LOAD) A COLLECTION
-# -------------------------------------------------------------
-# A ChromaDB collection is like a table in SQL — it holds
-# a set of related documents and their vectors.
-# get_or_create_collection: if it already exists, load it.
-# If not, create it fresh. Safe to run multiple times.
-# -------------------------------------------------------------
+
 
 collection = chroma_client.get_or_create_collection(
     name = COLLECTION_NAME,
@@ -64,9 +29,7 @@ collection = chroma_client.get_or_create_collection(
 )
 print(f"Collection '{COLLECTION_NAME}' ready. \n")
 
-# -------------------------------------------------------------
-# STEP 4: READ ALL .TXT FILES FROM KNOWLEDGE BASE DIRECTORY
-# -------------------------------------------------------------
+
 
 print(f"Readinf documents from: {KNOWLEDGE_BASE_DIR}\n")
 
@@ -105,16 +68,7 @@ for filename in txt_files:
     print(f"Loaded: {filename} ({len(text)} characters)")
 print(f"\n{len(documents)} documents loaded.\n")
 
-# -------------------------------------------------------------
-# STEP 5: EMBED AND STORE IN CHROMADB
-# -------------------------------------------------------------
-# Here's where the magic happens.
-# embedding_model.encode() converts each text document into
-# a list of 384 numbers (a vector) that represents its meaning.
-# ChromaDB stores both the vector and the original text together.
-# When you search later, it compares vectors to find the
-# most semantically similar documents to your query.
-# -------------------------------------------------------------
+
 
 print("Embedding documents and storing in ChromaDB ....")
 embeddings = embedding_model.encode(documents).tolist()
@@ -153,14 +107,7 @@ else:
 
 print(f"Total documents in collection: {collection.count()}\n")
 
-# -------------------------------------------------------------
-# STEP 6: VERIFICATION — test that retrieval actually works
-# -------------------------------------------------------------
-# We run 3 test queries. For each one we embed the question
-# and ask ChromaDB to return the most similar document.
-# The correct document should come back every time.
-# If it doesn't, something is wrong with the embeddings.
-# -------------------------------------------------------------
+
  
 print("=" * 60)
 print("VERTIFICATOION = Running test quries")
