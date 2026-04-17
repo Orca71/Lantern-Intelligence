@@ -1,18 +1,3 @@
-# LANTERN INTELLIGENCE v2 — adviser.py
-# Phase 5: LLM reasoning layer
-# =============================================================
-# WHAT THIS SCRIPT DOES:
-#   1. Takes a user question and selected database
-#   2. Routes the question to relevant SQL queries
-#   3. Retrieves live financial data + concept documents
-#   4. Builds a structured prompt
-#   5. Sends prompt to local Ollama LLM
-#   6. Returns a grounded financial answer
-#
-# LLM: llama3.1:8b running locally via Ollama
-# No external API calls. Everything runs on this machine.
-# =============================================================
-
 import json
 import requests
 from query_router import route
@@ -25,13 +10,7 @@ from retrieve import retrieve
 OLLAMA_URL   = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "llama3.1:8b"
 
-# -------------------------------------------------------------
-# COMPANY NAMES
-# -------------------------------------------------------------
-# Maps database keys to human-readable company names.
-# Used in the prompt so the LLM knows which company it's
-# advising on.
-# -------------------------------------------------------------
+
 
 COMPANY_NAMES = {
     "service1": "Apex Strategy Consulting",
@@ -39,18 +18,7 @@ COMPANY_NAMES = {
     "service3": "Vertex Advisory Partners"
 }
 
-# -------------------------------------------------------------
-# PROMPT BUILDER
-# -------------------------------------------------------------
-# This is the most important function in the system.
-# It takes raw data and turns it into a structured prompt
-# that tells the LLM exactly how to reason and respond.
-#
-# A good prompt has three parts:
-#   1. SYSTEM — who the LLM is and how it should behave
-#   2. CONTEXT — the financial data and concept knowledge
-#   3. QUESTION — what the user actually asked
-# -------------------------------------------------------------
+
 
 def build_prompt(question, company_name, live_data, concepts, selected_queries, history=None):
     """
