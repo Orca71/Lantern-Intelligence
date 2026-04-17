@@ -4,6 +4,8 @@
 
 # Lantern Intelligence
 
+> A modular AI system evolving from structured action execution to grounded reasoning over real-world data.
+
 Lantern Intelligence is a modular multi-agent AI system designed to automate small business workflows through natural language interaction. The system translates unstructured user prompts into structured, machine-executable actions, with a current focus on accounting automation via the QuickBooks API.
 
 This project was architected and engineered from the ground up as a full-stack machine learning system, combining intent classification, structured information extraction, and real-world API orchestration.
@@ -55,7 +57,7 @@ The accounting assistant follows a hierarchical multi-agent pipeline:
 
 ---
 
-## 🚀 Lantern Intelligence v2 — Reasoning & Retrieval Architecture
+# 🚀 Lantern Intelligence v2 — Reasoning & Retrieval Architecture
 
 Lantern Intelligence v2 extends the platform beyond action execution into **grounded reasoning over financial data**.
 
@@ -70,34 +72,47 @@ The result is a system capable of producing **context-aware, data-grounded finan
 ---
 
 ## V2 System Architecture
+User Question
+↓
+Query Router
+↓
+Retrieval Layer
+├── SQL (Live Financial Data)
+└── ChromaDB (Concept Knowledge)
+↓
+Prompt Builder
+↓
+LLM (Ollama — llama3.1:8b)
+↓
+Streaming Response (CLI / Web)
 
 
 ---
 
 ## Pipeline Components
 
-### 1. Query Router (`query_router.py`)
+### Query Router (`query_router.py`)
 - Lightweight keyword-based routing  
 - Selects only relevant financial queries  
 - Reduces noise before retrieval  
 
 ---
 
-### 2. Retrieval Layer (`retrieve.py`)
+### Retrieval Layer (`retrieve.py`)
 - Executes SQL queries on company databases  
 - Retrieves relevant concept documents from ChromaDB  
 - Returns structured context for reasoning  
 
 ---
 
-### 3. Knowledge Base + Embeddings (`ingest.py`)
+### Knowledge Base + Embeddings (`ingest.py`)
 - Financial concepts stored as `.txt` documents  
 - Embedded using SentenceTransformers  
 - Persisted in ChromaDB for semantic retrieval  
 
 ---
 
-### 4. Prompt Builder + Adviser (`adviser.py`)
+### Prompt Builder + Adviser (`adviser.py`)
 - Constructs structured prompts with:
   - strict system rules (no hallucination)  
   - financial benchmarks  
@@ -107,7 +122,7 @@ The result is a system capable of producing **context-aware, data-grounded finan
 
 ---
 
-### 5. Interfaces
+### Interfaces
 
 #### CLI (`main.py`)
 - Interactive question-answer loop  
