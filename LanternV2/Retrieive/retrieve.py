@@ -1,17 +1,3 @@
-# =============================================================
-# LANTERN INTELLIGENCE v2 — retrieve.py
-# Phase 3: Live SQL execution + ChromaDB concept retrieval
-# =============================================================
-# WHAT THIS SCRIPT DOES:
-#   1. Connects to the selected company SQLite database
-#   2. Runs all 8 financial queries live and returns results
-#   3. Queries ChromaDB for relevant concept documents
-#   4. Returns both to be used by the LLM in Phase 5
-#
-# This script is the data backbone of the adviser.
-# It never generates answers — it only fetches the context
-# that the LLM needs to generate a grounded answer.
-# =============================================================
 import os
 import sqlite3
 import chromadb
@@ -30,12 +16,7 @@ DB_PATHS = {
     "service3": "/workspace/Lantern_V2/databases/service3.db"
 }
 
-# -------------------------------------------------------------
-# MAP QUERY NAMES TO .SQL FILES
-# -------------------------------------------------------------
-# Keys are human-readable names used throughout the system.
-# Values are the actual filenames in matrix_queries/
-# -------------------------------------------------------------
+
  
 SQL_FILES = {
     "net_profit_margin":      "01_net_profit_margin.sql",
@@ -48,13 +29,7 @@ SQL_FILES = {
     "client_churn_rate":      "08_client_churn_rate.sql"
 }
 
-# -------------------------------------------------------------
-# LOAD SQL QUERIES FROM FILES
-# -------------------------------------------------------------
-# Reads all .sql files once at startup and stores them in a
-# dictionary. This way we only read from disk once — not on
-# every query execution.
-# -------------------------------------------------------------
+
 def load_sql_queries():
     """
     Read all .sql files from SQL_DIR and return as a dictionary.
@@ -80,12 +55,6 @@ def load_sql_queries():
 
 
 
-# -------------------------------------------------------------
-# LOAD EMBEDDING MODEL AND CHROMADB
-# -------------------------------------------------------------
-# These are loaded once when the module is imported.
-# Loading them here avoids reloading on every function call.
-# -------------------------------------------------------------
 
 print("Loading retrieval system ...")
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -96,13 +65,7 @@ print("Loading SQL queries from matrix_queries/...")
 SQL_QUERIES = load_sql_queries()
 print(f"{len([q for q in SQL_QUERIES.values() if q])} SQL queries loaded.\n")
 
-# -------------------------------------------------------------
-# FUNCTION 1: GET LIVE FINANCIAL DATA FROM SQLITE
-# -------------------------------------------------------------
-# Connects to the selected company database, runs all 8
-# queries, and returns the results as a dictionary.
-# Each result is a list of row dictionaries.
-# -------------------------------------------------------------
+
 
 def get_live_data(db_key):
     """
@@ -155,12 +118,7 @@ def get_live_data(db_key):
  
     return results
  
- # -------------------------------------------------------------
-# FUNCTION 2: GET RELEVANT CONCEPT DOCUMENTS FROM CHROMADB
-# -------------------------------------------------------------
-# Embeds the user question and retrieves the most relevant
-# concept documents from ChromaDB.
-# -------------------------------------------------------------
+
 
 def get_concepts(question):
     """
@@ -185,12 +143,6 @@ def get_concepts(question):
         })
     return concepts 
 
-# -------------------------------------------------------------
-# FUNCTION 3: FULL RETRIEVAL — combines both functions
-# -------------------------------------------------------------
-# This is the main function the adviser will call.
-# One call returns everything needed to build the LLM prompt.
-# -------------------------------------------------------------
 def retrieve(question, db_key):
     """
     Full retrieval pipeline. Given a user question and a
@@ -213,9 +165,7 @@ def retrieve(question, db_key):
         "live_data": live_data,
         "concepts": concepts
     }
-# -------------------------------------------------------------
-# QUICK TEST — runs when you execute this script directly
-# -------------------------------------------------------------
+
 
 if __name__ == "__main__":
     print("=" * 60)
